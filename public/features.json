@@ -1,0 +1,104 @@
+[
+  {
+    "id": "feat-voice-memos",
+    "title": "AI Voice Memos",
+    "description": "Record, transcribe, and summarize conversations with one tap. Perfect for meetings and quick notes.",
+    "releaseDate": "2025-09-15",
+    "status": "released",
+    "tags": ["mobile", "ai", "transcription"],
+    "highlight": false,
+    "screenshots": ["https://picsum.photos/seed/voice1/800/600", "https://picsum.photos/seed/voice2/800/600"]
+  },
+  {
+    "id": "feat-smart-search",
+    "title": "Smart Search",
+    "description": "Find anything across your documents with AI-powered semantic search. Understands context and meaning.",
+    "releaseDate": "2025-10-01",
+    "status": "released",
+    "tags": ["search", "ai", "productivity"],
+    "highlight": true,
+    "screenshots": ["https://picsum.photos/seed/search1/800/600", "https://picsum.photos/seed/search2/800/600", "https://picsum.photos/seed/search3/800/600"]
+  },
+  {
+    "id": "feat-dark-mode",
+    "title": "Dark Mode",
+    "description": "Easier on the eyes with a beautiful dark theme that adapts to your system preferences.",
+    "releaseDate": "2025-11-10",
+    "status": "released",
+    "tags": ["ui", "accessibility"],
+    "highlight": false,
+    "screenshots": ["https://picsum.photos/seed/dark1/800/600"]
+  },
+  {
+    "id": "feat-collab-edit",
+    "title": "Real-time Collaboration",
+    "description": "Work together with your team in real-time. See changes as they happen with live cursors.",
+    "releaseDate": "2025-12-05",
+    "status": "released",
+    "tags": ["collaboration", "team"],
+    "highlight": true,
+    "screenshots": ["https://picsum.photos/seed/collab1/800/600", "https://picsum.photos/seed/collab2/800/600"],
+    "videos": ["https://www.w3schools.com/html/mov_bbb.mp4"]
+  },
+  {
+    "id": "feat-mobile-app",
+    "title": "Mobile App Redesign",
+    "description": "Completely redesigned mobile experience with faster performance and intuitive gestures.",
+    "releaseDate": "2026-01-08",
+    "status": "released",
+    "tags": ["mobile", "ui"],
+    "highlight": false,
+    "screenshots": ["https://picsum.photos/seed/mobile1/800/600", "https://picsum.photos/seed/mobile2/800/600"]
+  },
+  {
+    "id": "feat-api-v2",
+    "title": "API v2 Beta",
+    "description": "New REST and GraphQL APIs with improved performance, better documentation, and more capabilities.",
+    "releaseDate": "2026-01-20",
+    "status": "beta",
+    "tags": ["api", "developer"],
+    "highlight": false,
+    "screenshots": ["https://picsum.photos/seed/api1/800/600"]
+  },
+  {
+    "id": "feat-analytics",
+    "title": "Advanced Analytics",
+    "description": "Gain insights into your workflow with detailed analytics dashboards and custom reports.",
+    "releaseDate": "2026-02-15",
+    "status": "planned",
+    "tags": ["analytics", "insights"],
+    "highlight": false,
+    "screenshots": ["https://picsum.photos/seed/analytics1/800/600", "https://picsum.photos/seed/analytics2/800/600"]
+  },
+  {
+    "id": "feat-ai-assistant",
+    "title": "AI Assistant",
+    "description": "Your personal AI assistant that helps you write, analyze, and automate tasks throughout the app.",
+    "releaseDate": "2026-03-01",
+    "status": "planned",
+    "tags": ["ai", "automation"],
+    "highlight": true,
+    "screenshots": ["https://picsum.photos/seed/assistant1/800/600", "https://picsum.photos/seed/assistant2/800/600"],
+    "videos": ["https://www.w3schools.com/html/mov_bbb.mp4"]
+  },
+  {
+    "id": "feat-integrations",
+    "title": "Enterprise Integrations",
+    "description": "Connect with Salesforce, SAP, and other enterprise tools. Single sign-on and audit logging included.",
+    "releaseDate": "2026-04-15",
+    "status": "planned",
+    "tags": ["enterprise", "integrations"],
+    "highlight": false,
+    "screenshots": ["https://picsum.photos/seed/enterprise1/800/600"]
+  },
+  {
+    "id": "feat-offline",
+    "title": "Offline Mode",
+    "description": "Work without internet connection. Your changes sync automatically when you're back online.",
+    "releaseDate": "2026-06-01",
+    "status": "planned",
+    "tags": ["mobile", "offline"],
+    "highlight": false,
+    "screenshots": ["https://picsum.photos/seed/offline1/800/600", "https://picsum.photos/seed/offline2/800/600"]
+  }
+]
