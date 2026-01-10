@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { FeatureTimeline } from './components/FeatureTimeline'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import { theme } from './utils/constants'
+import { darkTheme, lightTheme } from './utils/constants'
+import { ThemeToggle } from './components/ThemeToggle'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -16,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.textPrimary};
     min-height: 100vh;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   #root {
@@ -26,9 +29,13 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(true)
+  const theme = isDarkMode ? darkTheme : lightTheme
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
+      <ThemeToggle isDark={isDarkMode} onToggle={() => setIsDarkMode(!isDarkMode)} />
       <FeatureTimeline dataUrl="/features.json" />
     </ThemeProvider>
   )

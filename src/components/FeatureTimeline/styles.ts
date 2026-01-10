@@ -132,15 +132,13 @@ export const Card = styled(motion.div)<{ $isFocused: boolean; $isPast: boolean; 
         ? $isPast
           ? theme.colors.greyMid
           : theme.colors.primary
-        : theme.colors.greyDark};
+        : theme.colors.greyMid};
   border-radius: ${({ theme }) => theme.spacing.cardBorderRadius}px;
-  box-shadow: ${({ $isFocused, $isPast, theme }) =>
+  box-shadow: ${({ $isFocused, theme }) =>
     $isFocused
-      ? $isPast
-        ? `0 0 30px rgba(102, 102, 102, 0.3)`
-        : `0 0 30px ${theme.colors.primaryGlow}`
-      : '0 4px 20px rgba(0, 0, 0, 0.3)'};
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+      ? `0 0 20px ${theme.colors.primaryGlow}`
+      : '0 2px 12px rgba(0, 0, 0, 0.1)'};
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
 `;
 
 export const CardTitle = styled.h3`
