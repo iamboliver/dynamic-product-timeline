@@ -1,7 +1,21 @@
 {
   "name": "dynamic-product-timeline",
-  "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "A beautiful, interactive horizontal timeline for showcasing product features, releases, and roadmaps",
+  "author": "Oliver Barwell",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamboliver/dynamic-product-timeline"
+  },
+  "keywords": [
+    "react",
+    "timeline",
+    "product-roadmap",
+    "framer-motion",
+    "typescript",
+    "feature-timeline"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",

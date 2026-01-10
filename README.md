@@ -6,6 +6,10 @@ A beautiful, interactive horizontal timeline for showcasing product features, re
 ![React](https://img.shields.io/badge/React-18-61dafb)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+![Demo](./docs/Feature%20modal.png)
+
+![Demo](./docs/light%20mode.png)
+
 ---
 
 ## ✨ Features
