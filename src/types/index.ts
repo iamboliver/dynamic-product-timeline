@@ -105,3 +105,19 @@ export interface ConnectorStemProps {
   height: number;
   isPast: boolean;
 }
+
+// === Vote Types ===
+export type VoteType = 'like' | 'dislike';
+
+export interface VoteData {
+  likes: number;
+  dislikes: number;
+}
+
+export interface VotesMap {
+  [featureId: string]: VoteData;
+}
+
+export interface UserVotesMap {
+  [featureId: string]: VoteType;
+}

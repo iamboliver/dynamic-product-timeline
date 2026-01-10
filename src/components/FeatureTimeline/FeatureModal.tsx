@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import type { FeatureModalProps } from '../../types';
 import { formatReleaseDate } from '../../utils/timeScale';
+import { useVotes } from '../../hooks/useVotes';
 import {
   ModalOverlay,
   ModalContent,
@@ -19,6 +20,10 @@ import {
   MediaThumbnails,
   MediaThumb,
   VideoThumbOverlay,
+  VoteContainer,
+  VoteButtonGroup,
+  VoteButton,
+  VoteCount,
 } from './styles';
 
 const overlayVariants = {
@@ -51,6 +56,7 @@ interface MediaItem {
 
 export function FeatureModal({ feature, isOpen, onClose }: FeatureModalProps) {
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const { votes, userVotes, vote } = useVotes();
 
   // Build media items array
   const mediaItems: MediaItem[] = [];
@@ -174,6 +180,32 @@ export function FeatureModal({ feature, isOpen, onClose }: FeatureModalProps) {
                   : 'Planned'}
               </StatusBadge>
               <DateLabel>{formatReleaseDate(feature.releaseDate, feature.status)}</DateLabel>
+              <VoteContainer>
+                <VoteButtonGroup>
+                  <VoteButton
+                    $type="like"
+                    $voted={userVotes[feature.id] === 'like'}
+                    disabled={userVotes[feature.id] === 'like'}
+                    onClick={() => vote(feature.id, 'like')}
+                    title="Like this feature"
+                  >
+                    👍
+                  </VoteButton>
+                  <VoteCount>{votes[feature.id]?.likes || 0}</VoteCount>
+                </VoteButtonGroup>
+                <VoteButtonGroup>
+                  <VoteButton
+                    $type="dislike"
+                    $voted={userVotes[feature.id] === 'dislike'}
+                    disabled={userVotes[feature.id] === 'dislike'}
+                    onClick={() => vote(feature.id, 'dislike')}
+                    title="Dislike this feature"
+                  >
+                    👎
+                  </VoteButton>
+                  <VoteCount>{votes[feature.id]?.dislikes || 0}</VoteCount>
+                </VoteButtonGroup>
+              </VoteContainer>
             </ModalMeta>
           </ModalContent>
         </ModalOverlay>

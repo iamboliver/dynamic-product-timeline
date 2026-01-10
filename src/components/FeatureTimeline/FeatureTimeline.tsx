@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { useMotionValue, useSpring, type PanInfo } from 'framer-motion';
+import { useMotionValue, useSpring, AnimatePresence, type PanInfo } from 'framer-motion';
 import type { FeatureTimelineProps, PositionedFeature } from '../../types';
 import { useFeatureData } from '../../hooks/useFeatureData';
 import { useFocusedFeature } from '../../hooks/useFocusedFeature';
 import { calculateDragBounds } from '../../utils/timeScale';
 import { DEFAULT_PX_PER_DAY } from '../../utils/constants';
-import { TimelineContainer, TimelineContent, DragArea } from './styles';
+import { TimelineContainer, TimelineContent, DragArea, TodayButton } from './styles';
 import { TimelineAxis } from './TimelineAxis';
 import { TodayMarker } from './TodayMarker';
 import { FeatureCardsLayer } from './FeatureCardsLayer';
@@ -40,6 +40,21 @@ export function FeatureTimeline({
 
   // Focus detection
   const focusedFeatureId = useFocusedFeature(features, viewportOffsetX, containerWidth);
+
+  // Track if scrolled away from today (threshold of 100px)
+  const [isAwayFromToday, setIsAwayFromToday] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = rawX.on('change', (value) => {
+      setIsAwayFromToday(Math.abs(value) > 100);
+    });
+    return unsubscribe;
+  }, [rawX]);
+
+  // Reset to today handler
+  const handleResetToToday = useCallback(() => {
+    rawX.set(0);
+  }, [rawX]);
 
   // Measure container
   useEffect(() => {
@@ -159,6 +174,21 @@ export function FeatureTimeline({
         isOpen={modalFeature !== null}
         onClose={handleCloseModal}
       />
+
+      <AnimatePresence>
+        {isAwayFromToday && (
+          <TodayButton
+            onClick={handleResetToToday}
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ duration: 0.2 }}
+          >
+            <span>↩</span>
+            <span>Back to Today</span>
+          </TodayButton>
+        )}
+      </AnimatePresence>
     </TimelineContainer>
   );
 }

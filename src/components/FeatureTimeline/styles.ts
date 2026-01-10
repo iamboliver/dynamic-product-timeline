@@ -419,3 +419,96 @@ export const VideoThumbOverlay = styled.div`
     border-bottom: 7px solid transparent;
   }
 `;
+
+// Vote UI Components
+export const VoteContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+`;
+
+export const VoteButtonGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
+export const VoteButton = styled.button<{ $voted?: boolean; $type: 'like' | 'dislike' }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.colors.greyMid};
+  background: ${({ theme, $voted, $type }) =>
+    $voted
+      ? $type === 'like'
+        ? theme.colors.statusReleased + '20'
+        : theme.colors.statusBeta + '20'
+      : 'transparent'};
+  color: ${({ theme, $voted, $type }) =>
+    $voted
+      ? $type === 'like'
+        ? theme.colors.statusReleased
+        : theme.colors.statusBeta
+      : theme.colors.textSecondary};
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 16px;
+
+  &:hover:not(:disabled) {
+    border-color: ${({ theme, $type }) =>
+      $type === 'like' ? theme.colors.statusReleased : theme.colors.statusBeta};
+    color: ${({ theme, $type }) =>
+      $type === 'like' ? theme.colors.statusReleased : theme.colors.statusBeta};
+    background: ${({ theme, $type }) =>
+      $type === 'like'
+        ? theme.colors.statusReleased + '10'
+        : theme.colors.statusBeta + '10'};
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: ${({ $voted }) => ($voted ? 1 : 0.5)};
+  }
+`;
+
+export const VoteCount = styled.span`
+  font-size: 13px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  min-width: 20px;
+`;
+
+// Today Button
+export const TodayButton = styled(motion.button)`
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: ${({ theme }) => theme.colors.backgroundElevated};
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  border-radius: 24px;
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4),
+      0 0 20px ${({ theme }) => theme.colors.primaryGlow};
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+`;
