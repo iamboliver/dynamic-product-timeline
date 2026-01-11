@@ -10,6 +10,8 @@ A beautiful, interactive horizontal timeline for showcasing product features, re
 
 ![Demo](./docs/light%20mode.png)
 
+![Demo](./docs/demo.gif)
+
 ---
 
 ## ✨ Features
