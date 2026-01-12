@@ -17,6 +17,7 @@ export function FeatureTimeline({
   today = new Date(),
   pxPerDay = DEFAULT_PX_PER_DAY,
   className,
+  dynamicMonthWidths = false,
 }: FeatureTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -24,11 +25,12 @@ export function FeatureTimeline({
   const [isDragging, setIsDragging] = useState(false);
 
   // Load and process feature data
-  const { features, minDate, maxDate, loading, error } = useFeatureData(
+  const { features, minDate, maxDate, timeScale, loading, error } = useFeatureData(
     dataUrl,
     inlineFeatures,
     today,
-    pxPerDay
+    pxPerDay,
+    dynamicMonthWidths
   );
 
   // Drag state - use raw motion value for immediate updates
@@ -74,7 +76,7 @@ export function FeatureTimeline({
 
   // Calculate drag bounds
   const bounds = containerWidth > 0 && features.length > 0
-    ? calculateDragBounds(minDate, maxDate, today, pxPerDay, containerWidth, 400)
+    ? calculateDragBounds(minDate, maxDate, today, pxPerDay, containerWidth, 400, timeScale ?? undefined)
     : { left: -2000, right: 2000 };
 
   // Clamp value within bounds
@@ -149,6 +151,7 @@ export function FeatureTimeline({
             today={today}
             pxPerDay={pxPerDay}
             viewportWidth={containerWidth}
+            timeScale={timeScale}
           />
         )}
       </TimelineContent>
@@ -157,6 +160,7 @@ export function FeatureTimeline({
         viewportOffsetX={viewportOffsetX}
         today={today}
         pxPerDay={pxPerDay}
+        timeScale={timeScale}
       />
 
       {containerWidth > 0 && (

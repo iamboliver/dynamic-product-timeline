@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { Feature, ParsedFeature, PositionedFeature } from '../types';
-import { dateToX } from '../utils/timeScale';
+import { buildTimeScale, dateToX, type TimeScale } from '../utils/timeScale';
 import { calculateCardPositions } from '../utils/collisionAvoidance';
 import { theme } from '../utils/constants';
 
@@ -8,6 +8,7 @@ interface UseFeatureDataResult {
   features: PositionedFeature[];
   minDate: Date;
   maxDate: Date;
+  timeScale: TimeScale | null;
   loading: boolean;
   error: Error | null;
 }
@@ -16,7 +17,8 @@ export function useFeatureData(
   dataUrl: string | undefined,
   inlineFeatures: Feature[] | undefined,
   today: Date,
-  pxPerDay: number
+  pxPerDay: number,
+  dynamicMonthWidths: boolean = false
 ): UseFeatureDataResult {
   const [rawFeatures, setRawFeatures] = useState<Feature[]>(inlineFeatures ?? []);
   const [loading, setLoading] = useState(!inlineFeatures);
@@ -49,18 +51,30 @@ export function useFeatureData(
         features: [],
         minDate: today,
         maxDate: today,
+        timeScale: null,
       };
     }
 
+    // First pass: parse dates
+    const parsedDates = rawFeatures.map((f) => ({
+      ...f,
+      releaseDate: new Date(f.releaseDate),
+    }));
+
+    // Build dynamic time scale if enabled, otherwise use linear positioning
+    const timeScale = dynamicMonthWidths
+      ? buildTimeScale(parsedDates, today, pxPerDay, theme.spacing.minCardSpacing)
+      : null;
+
     // Parse dates and compute x coordinates
-    const parsed: ParsedFeature[] = rawFeatures
+    const parsed: ParsedFeature[] = parsedDates
       .map((f) => {
-        const releaseDate = new Date(f.releaseDate);
-        const isPast = releaseDate <= today;
-        const x = dateToX(releaseDate, today, pxPerDay);
+        const isPast = f.releaseDate <= today;
+        const x = timeScale
+          ? timeScale.dateToX(f.releaseDate, f.id)
+          : dateToX(f.releaseDate, today, pxPerDay);
         return {
           ...f,
-          releaseDate,
           x,
           isPast,
         };
@@ -79,8 +93,8 @@ export function useFeatureData(
       theme.spacing.slotHeight
     );
 
-    return { features: positioned, minDate, maxDate };
-  }, [rawFeatures, today, pxPerDay]);
+    return { features: positioned, minDate, maxDate, timeScale };
+  }, [rawFeatures, today, pxPerDay, dynamicMonthWidths]);
 
   return {
     ...result,

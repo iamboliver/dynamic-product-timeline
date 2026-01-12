@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { generateTicks, dateToX, logicalToScreenX } from '../../utils/timeScale';
+import { generateTicks, dateToX, logicalToScreenX, type TimeScale } from '../../utils/timeScale';
 import type { TimelineAxisProps } from '../../types';
 import { TimelineAxisLine, TicksContainer, TickMark, TickLine, TickLabel } from './styles';
 
@@ -11,22 +11,31 @@ const axisVariants = {
   },
 };
 
+interface Props extends TimelineAxisProps {
+  timeScale: TimeScale | null;
+}
+
 export function TimelineAxis({
   minDate,
   maxDate,
   today,
   pxPerDay,
   viewportWidth,
-}: TimelineAxisProps) {
+  timeScale,
+}: Props) {
   const ticks = useMemo(
-    () => generateTicks(minDate, maxDate, today, pxPerDay, 'month'),
-    [minDate, maxDate, today, pxPerDay]
+    () => generateTicks(minDate, maxDate, today, pxPerDay, 'month', timeScale ?? undefined),
+    [minDate, maxDate, today, pxPerDay, timeScale]
   );
 
   // Calculate the start and end positions of the timeline
   const margin = 200; // Extra margin beyond the first/last feature
-  const minX = dateToX(minDate, today, pxPerDay) - margin;
-  const maxX = dateToX(maxDate, today, pxPerDay) + margin;
+  const getX = timeScale
+    ? (date: Date) => timeScale.dateToX(date)
+    : (date: Date) => dateToX(date, today, pxPerDay);
+
+  const minX = getX(minDate) - margin;
+  const maxX = getX(maxDate) + margin;
   const totalWidth = maxX - minX;
 
   // Convert to screen coordinates (relative to viewport center)

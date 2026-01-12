@@ -1,11 +1,12 @@
 import { useTransform, motion, type MotionValue } from 'framer-motion';
-import { xToDate } from '../../utils/timeScale';
+import { xToDate, type TimeScale } from '../../utils/timeScale';
 import { TodayMarkerWrapper, TodayMarkerLine, TodayLabel } from './styles';
 
 interface TodayMarkerProps {
   viewportOffsetX: MotionValue<number>;
   today: Date;
   pxPerDay: number;
+  timeScale?: TimeScale | null;
 }
 
 const markerVariants = {
@@ -33,12 +34,15 @@ function formatCenterDate(date: Date, today: Date): string {
   });
 }
 
-export function TodayMarker({ viewportOffsetX, today, pxPerDay }: TodayMarkerProps) {
+export function TodayMarker({ viewportOffsetX, today, pxPerDay, timeScale }: TodayMarkerProps) {
   // Calculate the date at the center of the viewport
   // viewportOffsetX > 0 means we've dragged right (viewing the past)
   // viewportOffsetX < 0 means we've dragged left (viewing the future)
   const centerDate = useTransform(viewportOffsetX, (offset) => {
     // Negative offset because dragging right (positive offset) shows earlier dates
+    if (timeScale) {
+      return timeScale.xToDate(-offset);
+    }
     return xToDate(-offset, today, pxPerDay);
   });
 

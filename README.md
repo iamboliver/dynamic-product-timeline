@@ -18,6 +18,7 @@ A beautiful, interactive horizontal timeline for showcasing product features, re
 
 - **Drag to Navigate** - Smooth horizontal scrolling with momentum physics
 - **Smart Card Layout** - Automatic collision avoidance prevents overlapping
+- **Dynamic Month Widths** - Optional mode expands dense months to fit more cards
 - **Past & Future** - Cards positioned above (future) or below (past) the timeline
 - **Focus Detection** - Card closest to center automatically highlights
 - **Detail Modals** - Click any card to see full details with media gallery
@@ -238,13 +239,29 @@ const VOTE_SUBMIT_URL = 'https://api.example.com/vote';     // POST: submit vote
 
 ```tsx
 interface FeatureTimelineProps {
-  dataUrl?: string;        // URL to fetch features JSON
-  features?: Feature[];    // Inline feature data
-  today?: Date;            // Override "today" (default: new Date())
-  pxPerDay?: number;       // Pixels per day spacing (default: 12)
-  className?: string;      // Additional CSS class
+  dataUrl?: string;             // URL to fetch features JSON
+  features?: Feature[];         // Inline feature data
+  today?: Date;                 // Override "today" (default: new Date())
+  pxPerDay?: number;            // Pixels per day spacing (default: 12)
+  className?: string;           // Additional CSS class
+  dynamicMonthWidths?: boolean; // Expand dense months to fit cards (default: false)
 }
 ```
+
+### Dynamic Month Widths
+
+By default, the timeline uses a linear scale where each day has equal width. When you have many features in the same month, cards may overlap.
+
+Enable `dynamicMonthWidths` to automatically expand months with more features:
+
+```tsx
+<FeatureTimeline dataUrl="/features.json" dynamicMonthWidths />
+```
+
+With this enabled:
+- Months with more features become wider
+- Cards within dense months spread out horizontally
+- The date label updates correctly when dragging through variable-width months
 
 ---
 

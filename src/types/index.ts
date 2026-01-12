@@ -66,6 +66,8 @@ export interface FeatureTimelineProps {
   today?: Date;
   pxPerDay?: number;
   className?: string;
+  /** When true, months with more features expand to prevent overlap. Defaults to false. */
+  dynamicMonthWidths?: boolean;
 }
 
 export interface TimelineAxisProps {
