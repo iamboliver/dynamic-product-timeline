@@ -68,6 +68,8 @@ export interface FeatureTimelineProps {
   className?: string;
   /** When true, months with more features expand to prevent overlap. Defaults to false. */
   dynamicMonthWidths?: boolean;
+  /** When true, shows a search bar to find and navigate to features. Defaults to false. */
+  searchEnabled?: boolean;
 }
 
 export interface TimelineAxisProps {

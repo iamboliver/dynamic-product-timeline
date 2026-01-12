@@ -512,3 +512,76 @@ export const TodayButton = styled(motion.button)`
     transform: scale(0.98);
   }
 `;
+
+// Search Bar Components
+export const SearchContainer = styled.div`
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 100;
+  width: 280px;
+`;
+
+export const SearchInput = styled.input`
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid ${({ theme }) => theme.colors.greyMid};
+  background: ${({ theme }) => theme.colors.backgroundElevated};
+  color: ${({ theme }) => theme.colors.textPrimary};
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.textSecondary};
+  }
+`;
+
+export const SearchResults = styled(motion.div)`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: ${({ theme }) => theme.colors.backgroundElevated};
+  border: 1px solid ${({ theme }) => theme.colors.greyMid};
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+`;
+
+export const SearchResultItem = styled.button`
+  width: 100%;
+  padding: 10px 14px;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.greyDark};
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.textPrimary};
+  transition: background 0.15s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.backgroundSurface};
+  }
+`;
+
+export const SearchResultTitle = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+`;
+
+export const SearchResultMeta = styled.div`
+  font-size: 12px;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  margin-top: 2px;
+`;

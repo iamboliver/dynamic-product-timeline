@@ -10,6 +10,7 @@ import { TimelineAxis } from './TimelineAxis';
 import { TodayMarker } from './TodayMarker';
 import { FeatureCardsLayer } from './FeatureCardsLayer';
 import { FeatureModal } from './FeatureModal';
+import { SearchBar } from './SearchBar';
 
 export function FeatureTimeline({
   dataUrl,
@@ -18,6 +19,7 @@ export function FeatureTimeline({
   pxPerDay = DEFAULT_PX_PER_DAY,
   className,
   dynamicMonthWidths = false,
+  searchEnabled = false,
 }: FeatureTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -110,6 +112,26 @@ export function FeatureTimeline({
     setModalFeature(null);
   }, []);
 
+  // Navigate to a specific feature (from search)
+  const handleNavigateToFeature = useCallback(
+    (feature: PositionedFeature) => {
+      // Calculate offset to center the feature
+      const targetOffset = -feature.x;
+
+      // Clamp within bounds
+      const clampedOffset = Math.max(bounds.left, Math.min(bounds.right, targetOffset));
+
+      // Animate to position
+      rawX.set(clampedOffset);
+
+      // Open modal after a short delay to let animation start
+      setTimeout(() => {
+        setModalFeature(feature);
+      }, 300);
+    },
+    [rawX, bounds]
+  );
+
   if (loading) {
     return (
       <TimelineContainer ref={containerRef} className={className}>
@@ -132,6 +154,10 @@ export function FeatureTimeline({
 
   return (
     <TimelineContainer ref={containerRef} className={className}>
+      {searchEnabled && (
+        <SearchBar features={features} onSelectResult={handleNavigateToFeature} />
+      )}
+
       <DragArea
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}

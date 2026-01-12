@@ -36,7 +36,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <ThemeToggle isDark={isDarkMode} onToggle={() => setIsDarkMode(!isDarkMode)} />
-      <FeatureTimeline dataUrl="/features.json" />
+      <FeatureTimeline dataUrl="/features.json" dynamicMonthWidths />
     </ThemeProvider>
   )
 }

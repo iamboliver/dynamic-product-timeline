@@ -19,6 +19,7 @@ A beautiful, interactive horizontal timeline for showcasing product features, re
 - **Drag to Navigate** - Smooth horizontal scrolling with momentum physics
 - **Smart Card Layout** - Automatic collision avoidance prevents overlapping
 - **Dynamic Month Widths** - Optional mode expands dense months to fit more cards
+- **Search Bar** - Optional search to find and navigate to features instantly
 - **Past & Future** - Cards positioned above (future) or below (past) the timeline
 - **Focus Detection** - Card closest to center automatically highlights
 - **Detail Modals** - Click any card to see full details with media gallery
@@ -245,6 +246,7 @@ interface FeatureTimelineProps {
   pxPerDay?: number;            // Pixels per day spacing (default: 12)
   className?: string;           // Additional CSS class
   dynamicMonthWidths?: boolean; // Expand dense months to fit cards (default: false)
+  searchEnabled?: boolean;      // Show search bar to find features (default: false)
 }
 ```
 
@@ -262,6 +264,20 @@ With this enabled:
 - Months with more features become wider
 - Cards within dense months spread out horizontally
 - The date label updates correctly when dragging through variable-width months
+
+### Search Bar
+
+Enable a search bar in the top-left corner to quickly find and navigate to features:
+
+```tsx
+<FeatureTimeline dataUrl="/features.json" searchEnabled />
+```
+
+With this enabled:
+- Search box appears in the top-left corner
+- Searches feature titles, descriptions, and tags
+- Shows up to 5 matching results in a dropdown
+- Clicking a result smoothly scrolls to that card and opens its modal
 
 ---
 
