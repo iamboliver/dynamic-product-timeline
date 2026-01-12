@@ -79,7 +79,7 @@ function FeatureCardWithMotion({
 
   // For cards above the line, we need to offset by card height
   // so the bottom of the card aligns with the y position
-  const adjustedY = feature.isPast
+  const adjustedY = feature.side === 'below'
     ? feature.yOffset
     : feature.yOffset - CARD_HEIGHT;
 

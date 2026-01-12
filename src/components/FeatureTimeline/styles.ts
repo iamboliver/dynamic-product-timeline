@@ -201,18 +201,18 @@ export const DateLabel = styled.span`
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
-export const ConnectorStemEl = styled.div<{ $height: number; $isPast: boolean }>`
+export const ConnectorStemEl = styled.div<{ $height: number; $isBelow: boolean; $isPast: boolean }>`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
   height: ${({ $height }) => $height}px;
   background: linear-gradient(
-    ${({ $isPast }) => ($isPast ? '0deg' : '180deg')},
+    ${({ $isBelow }) => ($isBelow ? '0deg' : '180deg')},
     ${({ theme, $isPast }) => ($isPast ? theme.colors.greyMid : theme.colors.primary)},
     transparent
   );
-  ${({ $isPast }) => ($isPast ? 'bottom: 100%;' : 'top: 100%;')}
+  ${({ $isBelow }) => ($isBelow ? 'bottom: 100%;' : 'top: 100%;')}
 `;
 
 export const ModalOverlay = styled(motion.div)`
